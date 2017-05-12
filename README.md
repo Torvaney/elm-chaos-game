@@ -10,7 +10,7 @@ Do you see a pattern emerge?
 Inspired by [Numberphile](https://www.youtube.com/watch?v=kbKtFN71Lfs).
 
 ## Preview
-[![Screenshot](preview.png)]()
+[![Screenshot](preview.png)](https://torvaney.github.io/projects/chaosgame.html)
 
 ## Compile
 
