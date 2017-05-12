@@ -107,4 +107,5 @@ Inspired by [Numberphile](https://www.youtube.com/watch?v=kbKtFN71Lfs).
 
 
 appendixText = """
+Source code [on github](https://torvaney.github.io/projects/chaosgame).
 """
