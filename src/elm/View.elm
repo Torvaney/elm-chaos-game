@@ -41,12 +41,12 @@ view model =
                           ] [ text "Next" ]
                       , a [ class "btn btn-info"
                           , href "#!"
-                          , onClick ( NextN 10 )
-                          ] [ text "Next 10" ]
+                          , onClick ( NextN 25 )
+                          ] [ text "Next 25" ]
                       , a [ class "btn"
                           , href "#!"
-                          , onClick ( NextN 100 )
-                          ] [ text "Next 100" ]
+                          , onClick ( NextN 250 )
+                          ] [ text "Next 250" ]
                       ]
                 , div [ class "btn-group button-right"]
                       [ a [ class "btn btn-danger"
