@@ -1,4 +1,4 @@
-module State exposing (init, update, subscriptions)
+module State exposing (init, update, subscriptions, getAttractors)
 
 
 -- Module for the initial state of the app,
@@ -18,14 +18,16 @@ init =
 initModel : Model
 initModel =
   { traceHistory = []
-  , activeTrace = Coord 225 125
-  , attractors =
-      [ Coord 50 300
-      , Coord 225 50
-      , Coord 400 300
-      ]
+  , activeTrace = initOrigin
+  , nAttractors = 3
   , fraction = 0.5
   }
+
+
+initOrigin = Coord 250 200
+
+initRad = -150
+
 
 -- UPDATE
 
@@ -49,6 +51,13 @@ update msg model =
         , Cmd.none
         )
 
+      NumAttractors nStr ->
+        ( { model
+          | nAttractors = Result.withDefault 3 <| String.toInt nStr
+          }
+        , Cmd.none
+        )
+
       Clear ->
         ( clearModel model
         , Cmd.none
@@ -57,14 +66,19 @@ update msg model =
 
 sendTraceMsg : Model -> Cmd Msg
 sendTraceMsg model =
-  List.length model.attractors |>
-      Random.int 0 |>
-      Random.generate AddTrace
+  model |>
+    getAttractors |>
+    List.length |>
+    (\a -> a - 1) |>
+    Random.int 0 |>
+    Random.generate AddTrace
 
 
 getTarget : Int -> Model -> Maybe Coord
 getTarget target model =
-  Array.fromList model.attractors |>
+  model |>
+    getAttractors |>
+    Array.fromList |>
     Array.get target
 
 
@@ -96,6 +110,27 @@ clearModel model =
   { model
   | traceHistory = []
   }
+
+
+getAttractors : Model -> List Coord
+getAttractors model =
+  let
+    angle = 2 * pi / (toFloat model.nAttractors)
+  in
+    List.map
+      (nthCoord initOrigin initRad angle)
+      (List.range 0 model.nAttractors)
+
+
+nthCoord : Coord -> Float -> Float -> Int -> Coord
+nthCoord origin rad angle n =
+  let
+    nF = toFloat n
+  in
+    { x = origin.x + rad * (sin (nF * angle))
+    , y = origin.y + rad * (cos (nF * angle))
+    }
+
 
 -- SUBSCRIPTIONS
 

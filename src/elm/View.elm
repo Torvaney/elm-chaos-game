@@ -1,23 +1,25 @@
 module View exposing (..)
 
-import Html exposing (Html, div, button, h1, p, hr, a, text)
-import Html.Attributes exposing (class, height, width, id, href, downloadAs)
-import Html.Events exposing (onClick)
+import Html exposing (Html, div, button, h1, p, hr, a, text, input, br)
+import Html.Attributes as Attr
+import Html.Attributes exposing (class, height, width, id, href)
+import Html.Events exposing (onClick, onInput)
 import Svg exposing (svg, circle)
 import Svg.Attributes exposing (cx, cy, r, fill, fillOpacity, stroke)
 import Markdown
 import Random
 
 import Types exposing (..)
+import State exposing (getAttractors)
 
 
 drawCanvas model =
   svg [ width <| 500
-      , height <| 500
+      , height <| 400
       , id "pitchSvg"
       ]
       ( ( List.map drawTrace model.traceHistory ) ++
-        ( List.map drawAttractor model.attractors ) ++
+        ( List.map drawAttractor (getAttractors model) ) ++
         [ drawActiveTrace model.activeTrace ]
       )
 
@@ -55,10 +57,39 @@ view model =
                 ] ]
           , drawCanvas model
           , hr [] []
+          , nSlider model
           , Markdown.toHtml [ class "text-left" ] appendixText
           ]
     , divN 1
     ]
+
+
+divN : Int -> Html msg
+divN n =
+  div [ class ("col-md-" ++ (toString n)) ] []
+
+
+-- User input
+
+nSlider model =
+    div []
+    [ text "Number of attractors"
+    , br [] []
+    , input
+      [ Attr.type_ "range"
+      , Attr.min <| toString 3
+      , Attr.max <| toString 12
+      , Attr.step <| toString 1
+      , Attr.value <| toString <| model.nAttractors
+      , onInput NumAttractors
+      ] []
+    , br [] []
+    , text <| toString <| model.nAttractors
+    , br [] []
+    ]
+
+
+-- Draw the points
 
 
 drawCircle fillColour radius alpha point =
@@ -81,11 +112,6 @@ drawTrace =
 
 drawAttractor =
   drawCircle "#224593" 9 1.0
-
-
-divN : Int -> Html msg
-divN n =
-  div [ class ("col-md-" ++ (toString n)) ] []
 
 
 -- TEXT

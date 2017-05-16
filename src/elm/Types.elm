@@ -4,8 +4,9 @@ module Types exposing (..)
 type Msg
     = Next
     | NextN Int
-    | Clear
     | AddTrace Int
+    | NumAttractors String
+    | Clear
 
 
 -- Model types
@@ -20,6 +21,6 @@ type alias Coord =
 type alias Model =
   { traceHistory : List Coord
   , activeTrace : Coord
-  , attractors : List Coord
+  , nAttractors : Int
   , fraction : Float
   }
