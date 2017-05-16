@@ -121,17 +121,19 @@ headerText = "Chaos game"
 
 introText = """
 The algorithm goes like this:
-  1. Pick a target point (large circle) at random
+  1. Pick a target point (large circles) at random
   2. Go halfway between the current position and the target position
   3. Mark the new point (small circle)
   4. Repeat from `1`
 
 Do you see a pattern emerge?
 
-Inspired by [Numberphile](https://www.youtube.com/watch?v=kbKtFN71Lfs).
+You can also vary the number of target points with the slider at the bottom.
 """
 
 
 appendixText = """
+Inspired by [Numberphile](https://www.youtube.com/watch?v=kbKtFN71Lfs).
+
 Source code [on github](https://torvaney.github.io/projects/chaosgame).
 """
