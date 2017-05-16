@@ -92,26 +92,26 @@ nSlider model =
 -- Draw the points
 
 
-drawCircle fillColour radius alpha point =
+drawCircle fillColour strokeColour radius alpha point =
   circle [ cx (toString point.x)
          , cy (toString point.y)
          , r <| toString radius
          , fill fillColour
          , fillOpacity <| toString alpha
-         , stroke "black"
+         , stroke strokeColour
          ] []
 
 
 drawActiveTrace =
-  drawCircle "#fade48" 3 1.0
+  drawCircle "#45ccfe" "#224593" 4 1.0
 
 
 drawTrace =
-  drawCircle "#224593" 1 0.2
+  drawCircle "#224593" "none" 1 0.6
 
 
 drawAttractor =
-  drawCircle "#224593" 9 1.0
+  drawCircle "#224593" "#10224b" 9 1.0
 
 
 -- TEXT
