@@ -58,6 +58,7 @@ view model =
           , drawCanvas model
           , hr [] []
           , nSlider model
+          , fractionSlider model
           , Markdown.toHtml [ class "text-left" ] appendixText
           ]
     , divN 1
@@ -85,6 +86,23 @@ nSlider model =
       ] []
     , br [] []
     , text <| toString <| model.nAttractors
+    , br [] []
+    ]
+
+fractionSlider model =
+    div []
+    [ text "Trace fraction"
+    , br [] []
+    , input
+      [ Attr.type_ "range"
+      , Attr.min <| toString 0
+      , Attr.max <| toString 1
+      , Attr.step <| toString 0.05
+      , Attr.value <| toString <| model.fraction
+      , onInput ChangeFraction
+      ] []
+    , br [] []
+    , text <| toString <| model.fraction
     , br [] []
     ]
 
@@ -122,13 +140,14 @@ headerText = "Chaos game"
 introText = """
 The algorithm goes like this:
   1. Pick a target point (large circles) at random
-  2. Go halfway between the current position and the target position
+  2. Go a fraction of the way between the current position and the target position
   3. Mark the new point (small circle)
   4. Repeat from `1`
 
 Do you see a pattern emerge?
 
-You can also vary the number of target points with the slider at the bottom.
+You can vary both the number of target points and the fraction traversed
+with the slider at the bottom.
 """
 
 

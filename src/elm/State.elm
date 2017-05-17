@@ -58,6 +58,13 @@ update msg model =
         , Cmd.none
         )
 
+      ChangeFraction fractionStr ->
+        ( { model
+          | fraction = Result.withDefault 0.5 <| String.toFloat fractionStr
+          } |> clearModel
+        , Cmd.none
+        )
+
       Clear ->
         ( clearModel model
         , Cmd.none
@@ -87,8 +94,8 @@ midpoint fraction p1 p2 =
   let
     targetPoint = Maybe.withDefault p1 p2
   in
-    { x = (p1.x + targetPoint.x) * fraction
-    , y = (p1.y + targetPoint.y) * fraction
+    { x = fraction * p1.x + (1 - fraction) * targetPoint.x
+    , y = fraction * p1.y + (1 - fraction) * targetPoint.y
     }
 
 

@@ -6,6 +6,7 @@ type Msg
     | NextN Int
     | AddTrace Int
     | NumAttractors String
+    | ChangeFraction String
     | Clear
 
 
