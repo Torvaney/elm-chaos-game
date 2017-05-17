@@ -54,7 +54,7 @@ update msg model =
       NumAttractors nStr ->
         ( { model
           | nAttractors = Result.withDefault 3 <| String.toInt nStr
-          }
+          } |> clearModel
         , Cmd.none
         )
 
