@@ -135,5 +135,5 @@ You can also vary the number of target points with the slider at the bottom.
 appendixText = """
 Inspired by [Numberphile](https://www.youtube.com/watch?v=kbKtFN71Lfs).
 
-Source code [on github](https://torvaney.github.io/projects/chaosgame).
+Source code [on github](https://github.com/Torvaney/elm-chaos-game).
 """
